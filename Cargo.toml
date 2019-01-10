@@ -1,0 +1,8 @@
+[package]
+name = "markov_chain_text_generator"
+version = "0.1.0"
+authors = ["Rafael Bachmann <mediumendian@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.6.4"
