@@ -1,3 +1,5 @@
+#![feature(test)]
+
 use std::{collections::HashMap, env, fs};
 
 use rand::{seq::SliceRandom, thread_rng, Rng};
@@ -63,3 +65,6 @@ fn make_string(rule: &MarkovChainRule, length: usize) -> String {
 
     chain.join(" ")
 }
+
+#[cfg(test)]
+mod tests;
