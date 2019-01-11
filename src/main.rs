@@ -44,7 +44,7 @@ fn make_rule(content: &str, key_size: usize) -> Result<MarkovChainRule, &'static
     Ok(dict)
 }
 
-fn make_string(rule: &HashMap<Vec<&str>, Vec<&str>>, length: usize) -> String {
+fn make_string(rule: &MarkovChainRule, length: usize) -> String {
     let mut rng = thread_rng();
     let start = rule.keys().nth(rng.gen_range(0, rule.len())).unwrap();
 
