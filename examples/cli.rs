@@ -6,7 +6,7 @@ use markov_chain_text_generator::generate_text;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let filename = &args.get(1).expect("Please provide input file name");
+    let filename = args.get(1).expect("Please provide input file name");
     let key_size: usize = args
         .get(2)
         .expect("Please provide key size (up to a couple dozen or so, then it gets slow)")
