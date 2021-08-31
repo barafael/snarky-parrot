@@ -4,7 +4,7 @@ use rand::{seq::SliceRandom, thread_rng, Rng};
 
 pub type MarkovChainRule<'a> = HashMap<Vec<&'a str>, Vec<&'a str>>;
 
-pub fn make_rule(content: &str, key_size: usize) -> Result<MarkovChainRule, &'static str> {
+pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovChainRule, &'static str> {
     if key_size < 1 {
         return Err("key_size may not be less than 1!");
     }
@@ -28,7 +28,7 @@ pub fn make_rule(content: &str, key_size: usize) -> Result<MarkovChainRule, &'st
     Ok(dict)
 }
 
-pub fn make_string(rule: &MarkovChainRule, length: usize) -> String {
+pub fn generate_text(rule: &MarkovChainRule, length: usize) -> String {
     let mut rng = thread_rng();
     let start = rule.keys().nth(rng.gen_range(0..rule.len())).unwrap();
 
