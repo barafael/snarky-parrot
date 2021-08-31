@@ -1,13 +1,16 @@
+use error::Error;
+use rand::{seq::SliceRandom, thread_rng, Rng};
 use std::collections::HashMap;
 
-use rand::{seq::SliceRandom, thread_rng, Rng};
+mod error;
 
 pub type MarkovChainRule<'a> = HashMap<Vec<&'a str>, Vec<&'a str>>;
 
-pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovChainRule, &'static str> {
+pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovChainRule, Error> {
     if key_size < 1 {
-        return Err("key_size may not be less than 1!");
+        return Err(Error::InvalidKeySize);
     }
+
     let words: Vec<&str> = content.split_whitespace().collect();
 
     let mut dict: MarkovChainRule = HashMap::new();
@@ -30,6 +33,7 @@ pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovC
 
 pub fn generate_text(rule: &MarkovChainRule, length: usize) -> String {
     let mut rng = thread_rng();
+
     let start = rule.keys().nth(rng.gen_range(0..rule.len())).unwrap();
 
     let mut chain = start.clone();
