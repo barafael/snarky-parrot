@@ -1,7 +1,10 @@
 [package]
 name = "markov_chain_text_generator"
+description = "A simple markov chain text generator"
 version = "0.1.0"
-authors = ["Rafael Bachmann <mediumendian@gmail.com>"]
+authors = ["Rafael Bachmann <rafael.bachmann.93@gmail.com>"]
+license-file = "LICENSE"
+repository = "https://github.com/barafael/markov_chain_text_generator"
 edition = "2018"
 
 [dependencies]
