@@ -30,7 +30,7 @@ pub fn make_rule(content: &str, key_size: usize) -> Result<MarkovChainRule, &'st
 
 pub fn make_string(rule: &MarkovChainRule, length: usize) -> String {
     let mut rng = thread_rng();
-    let start = rule.keys().nth(rng.gen_range(0, rule.len())).unwrap();
+    let start = rule.keys().nth(rng.gen_range(0..rule.len())).unwrap();
 
     let mut chain = start.clone();
     let key_size = chain.len();
