@@ -1,10 +1,10 @@
 [package]
-name = "markov_chain_text_generator"
+name = "snarky-parrot"
 description = "A simple markov chain text generator"
 version = "0.2.0"
 authors = ["Rafael Bachmann <rafael.bachmann.93@gmail.com>"]
 license-file = "LICENSE"
-repository = "https://github.com/barafael/markov_chain_text_generator"
+repository = "https://github.com/barafael/snarky-parrot"
 edition = "2018"
 
 [dependencies]
