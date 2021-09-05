@@ -4,6 +4,9 @@ use std::collections::HashMap;
 
 mod error;
 
+#[cfg(test)]
+mod test;
+
 pub type MarkovChainRule<'a> = HashMap<Vec<&'a str>, Vec<&'a str>>;
 
 pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovChainRule, Error> {
