@@ -4,28 +4,11 @@ use std::{collections::HashMap, iter::once, slice};
 #[cfg(test)]
 mod test;
 
-pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovChainRule, Error> {
-    if key_size < 1 {
-        return Err(Error::InvalidKeySize);
-    }
-
-    let words: Vec<&str> = content.split_whitespace().collect();
-
-    let mut dict: MarkovChainRule = HashMap::new();
-
-    for slice in words.windows(key_size + 1) {
-        let (key, value) = slice.split_at(key_size);
-        let value = value[0];
-        dict.entry(key.to_vec()).or_default().push(value);
-    }
-
-    Ok(dict)
-}
-
-pub fn generate_rule_from_data_in_place(
+/// Slightly faster, but using unsafe.
+pub fn generate_rule_from_data_unsafe(
     content: &str,
     key_size: usize,
-) -> Result<HashMap<&str, Vec<&str>>, Error> {
+) -> Result<MarkovChainRule, Error> {
     if key_size < 1 {
         return Err(Error::InvalidKeySize);
     }
@@ -49,10 +32,8 @@ pub fn generate_rule_from_data_in_place(
     Ok(dict)
 }
 
-pub fn generate_rule_from_data_in_place_safe(
-    content: &str,
-    key_size: usize,
-) -> Result<HashMap<&str, Vec<&str>>, Error> {
+/// Slightly slower but no unsafe.
+pub fn generate_rule_from_data(content: &str, key_size: usize) -> Result<MarkovChainRule, Error> {
     if key_size < 1 {
         return Err(Error::InvalidKeySize);
     }
@@ -86,6 +67,28 @@ pub fn generate_rule_from_data_in_place_safe(
         dict.entry(&content[key_start..key_end])
             .or_default()
             .push(&content[value_start..value_end]);
+    }
+
+    Ok(dict)
+}
+
+/// Original function
+pub fn generate_rule_from_data_vec(
+    content: &str,
+    key_size: usize,
+) -> Result<HashMap<Vec<&str>, Vec<&str>>, Error> {
+    if key_size < 1 {
+        return Err(Error::InvalidKeySize);
+    }
+
+    let words: Vec<&str> = content.split_whitespace().collect();
+
+    let mut dict: HashMap<Vec<&str>, Vec<&str>> = HashMap::new();
+
+    for slice in words.windows(key_size + 1) {
+        let (key, value) = slice.split_at(key_size);
+        let value = value[0];
+        dict.entry(key.to_vec()).or_default().push(value);
     }
 
     Ok(dict)

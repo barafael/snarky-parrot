@@ -1,7 +1,7 @@
 use std::env;
 use std::fs;
 
-use snarky_parrot::rule_trainer::generate_rule_from_data;
+use snarky_parrot::rule_trainer::generate_rule_from_data_vec;
 use snarky_parrot::text_generator::generate_text;
 
 fn main() {
@@ -14,12 +14,12 @@ fn main() {
         .expect("Invalid key_size!");
     let output_size: usize = args
         .get(3)
-        .expect("Please provide lenght of output text")
+        .expect("Please provide length of output text")
         .parse()
         .expect("Invalid output_size!");
 
     let data = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let rule = generate_rule_from_data(&data, key_size).expect("Failed to generate rules");
+    let rule = generate_rule_from_data_vec(&data, key_size).expect("Failed to generate rules");
     let result = generate_text(&rule, output_size);
     println!("{}", result);
 }
