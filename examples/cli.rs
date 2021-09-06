@@ -1,8 +1,8 @@
 use std::env;
 use std::fs;
 
-use snarky_parrot::generate_rule_from_data;
-use snarky_parrot::generate_text;
+use snarky_parrot::rule_trainer::generate_rule_from_data;
+use snarky_parrot::text_generator::generate_text;
 
 fn main() {
     let args: Vec<String> = env::args().collect();

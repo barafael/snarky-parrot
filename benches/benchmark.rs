@@ -1,5 +1,5 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use snarky_parrot::{
+use snarky_parrot::rule_trainer::{
     generate_rule_from_data, generate_rule_from_data_in_place,
     generate_rule_from_data_in_place_safe,
 };

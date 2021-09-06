@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{
+use crate::rule_trainer::{
     generate_rule_from_data, generate_rule_from_data_in_place,
     generate_rule_from_data_in_place_safe,
 };
