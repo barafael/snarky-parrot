@@ -211,3 +211,25 @@ pub fn generate_rule_from_data_hashbrown_unsafe(
 
     Ok(dict)
 }
+
+/// Original function using hashbrown
+pub fn generate_rule_from_data_vec_hashbrown(
+    content: &str,
+    key_size: usize,
+) -> Result<hashbrown::HashMap<Vec<&str>, Vec<&str>>, Error> {
+    if key_size < 1 {
+        return Err(Error::InvalidKeySize);
+    }
+
+    let words: Vec<&str> = content.split_whitespace().collect();
+
+    let mut dict: hashbrown::HashMap<Vec<&str>, Vec<&str>> = hashbrown::HashMap::new();
+
+    for slice in words.windows(key_size + 1) {
+        let (key, value) = slice.split_at(key_size);
+        let value = value[0];
+        dict.entry(key.to_vec()).or_default().push(value);
+    }
+
+    Ok(dict)
+}

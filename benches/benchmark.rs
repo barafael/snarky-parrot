@@ -4,6 +4,7 @@ use snarky_parrot::{
         generate_rule_from_data, generate_rule_from_data_btreemap,
         generate_rule_from_data_hashbrown_safe, generate_rule_from_data_hashbrown_unsafe,
         generate_rule_from_data_unsafe, generate_rule_from_data_vec,
+        generate_rule_from_data_vec_hashbrown,
     },
     text_generator::{generate_text, generate_text_slice},
 };
@@ -38,6 +39,11 @@ fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("rule generation unsafe hashbrown", |b| {
         b.iter(|| generate_rule_from_data_hashbrown_unsafe(black_box(content), 4))
     });
+
+    c.bench_function(
+        "rule generation with hashbrown and original function",
+        |b| b.iter(|| generate_rule_from_data_vec_hashbrown(black_box(content), 4)),
+    );
 
     let rule = generate_rule_from_data_vec(content, 4).unwrap();
     c.bench_function("text generation vec", |b| {
