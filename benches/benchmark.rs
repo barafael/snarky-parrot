@@ -1,7 +1,9 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use snarky_parrot::{
     rule_trainer::{
-        generate_rule_from_data, generate_rule_from_data_unsafe, generate_rule_from_data_vec,
+        generate_rule_from_data, generate_rule_from_data_btreemap,
+        generate_rule_from_data_hashbrown_safe, generate_rule_from_data_hashbrown_unsafe,
+        generate_rule_from_data_unsafe, generate_rule_from_data_vec,
     },
     text_generator::{generate_text, generate_text_slice},
 };
@@ -23,6 +25,18 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     c.bench_function("rule generation unsafe", |b| {
         b.iter(|| generate_rule_from_data_unsafe(black_box(content), 4))
+    });
+
+    c.bench_function("rule generation safe btreemap", |b| {
+        b.iter(|| generate_rule_from_data_btreemap(black_box(content), 4))
+    });
+
+    c.bench_function("rule generation safe hashbrown", |b| {
+        b.iter(|| generate_rule_from_data_hashbrown_safe(black_box(content), 4))
+    });
+
+    c.bench_function("rule generation unsafe hashbrown", |b| {
+        b.iter(|| generate_rule_from_data_hashbrown_unsafe(black_box(content), 4))
     });
 
     let rule = generate_rule_from_data_vec(content, 4).unwrap();
