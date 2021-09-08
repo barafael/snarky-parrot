@@ -184,7 +184,7 @@ pub fn generate_rule_from_data_hashbrown_safe(
     Ok(dict)
 }
 
-/// Safe version using unsafe hashbrown
+/// Variant using unsafe and hashbrown
 pub fn generate_rule_from_data_hashbrown_unsafe(
     content: &str,
     key_size: usize,

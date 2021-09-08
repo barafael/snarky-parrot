@@ -6,7 +6,7 @@ use snarky_parrot::{
         generate_rule_from_data_unsafe, generate_rule_from_data_vec,
         generate_rule_from_data_vec_hashbrown,
     },
-    text_generator::{generate_text, generate_text_slice},
+    text_generator::generate_text,
 };
 
 const BIBLE: &str = include_str!("bible.txt");
@@ -48,11 +48,6 @@ fn criterion_benchmark(c: &mut Criterion) {
     let rule = generate_rule_from_data_vec(content, 4).unwrap();
     c.bench_function("text generation vec", |b| {
         b.iter(|| generate_text(&rule, 1000))
-    });
-
-    let rule = generate_rule_from_data(content, 4).unwrap();
-    c.bench_function("text generation slice", |b| {
-        b.iter(|| generate_text_slice(&rule, 1000))
     });
 }
 
